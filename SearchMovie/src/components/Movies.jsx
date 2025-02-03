@@ -7,8 +7,9 @@ const Movies = () => {
 
   return (
     <div className="movies-content">
-      {!isLoading && data
-        ? data.map((item) => (
+      {
+      !isLoading ? 
+        data.map(item => (
             <ItemMovie
               key={item.imdbID}
               id={item.imdbID}
@@ -18,7 +19,8 @@ const Movies = () => {
               year={item.Year}
             />
           ))
-        : ""}
+        : ""
+        }
     </div>
   );
 };

@@ -12,8 +12,8 @@ export const useFetch = params => {
         fetch(url)
                 .then(respuesta => respuesta.json())
                 .then(respuestaJson => {                    
-                    if (respuestaJson.Response === "true") {
-                        setData(respuestaJson.Search);
+                    if (respuestaJson.Response === "True") {
+                        setData(respuestaJson.Search || respuestaJson);
                         setError(false);
                     }else {
                         setError(true);

@@ -4,8 +4,8 @@ import Movies from "./Movies";
 const MainPage = () => {
     return ( 
         <>
-        <FormSearch/>
-        <Movies/>
+            <FormSearch/>
+            <Movies/>
         </>
      );
 }
