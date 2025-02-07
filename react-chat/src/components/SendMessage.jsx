@@ -3,12 +3,16 @@ import { addDoc, collection, serverTimestamp, Timestamp } from "firebase/firesto
 import { db, auth } from "../firebase";
 import Picker from "emoji-picker-react";
 
-const SendMessage = () => {
+const SendMessage = ({scroll}) => {
     const [input, setInput] = useState('');
     const [open, setOpen] = useState('close');
 
-    const sendMessage = async e => {
+    const sendMessage = async (e) => {
         e.preventDefault();
+        if (input === '') {
+            alert('Please enter a valid message')
+            return;
+        }
         const {uid, displayNmae, photoURL} = auth.currentUser;
         await addDoc(collection(db, 'messages'), {
             text: input,
@@ -18,12 +22,14 @@ const SendMessage = () => {
             timestamp: serverTimestamp()
         })
         setInput("");
+        scroll.current.sccrollIntoView({behavior:'smooth'})
     }
 
     const emoji = () => setOpen('open')
     const closeEmoji = () => setOpen('close');
-    const onEmojiClick = (e, emojiObjet) => {
-        setChosenEmoji(emojiObjet);
+    const onEmojiClick = (event, emojiObjet) => {
+        //console.log(emojiObjet);
+        setInput(`${input}${emojiObjet.emoji}`);
     };
 
     return (
@@ -31,8 +37,8 @@ const SendMessage = () => {
             <button
                 type="button"
                 className="btn-emoji"
-                onClick={emoji}
-            >
+                onClick={emoji}>
+
                 <i className="fa-solid fa-face-grin-wink"></i>
             </button>
             <div className={open}>
@@ -46,13 +52,14 @@ const SendMessage = () => {
                 </button>
                 <Picker onEmojiClick={onEmojiClick}/>
             </div>
+
             <input
             type="text"
-            placeholder="Enter yout messsage here"
+            placeholder="Enter your messsage here"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             />
-            <button type="submit">send</button>
+            <button type="submit">Send <i className="fa-solid fa-paper-plane"></i></button>
       </form>
     );
 }

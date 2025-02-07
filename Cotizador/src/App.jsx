@@ -4,7 +4,7 @@ import Formulario from "./Components/Formulario";
 import "./App.css";
 import Resultado from "./Components/resultado";
 import Mensaje from "./Components/Mensaje";
-
+import graft from "./Components/grafico";
 
 function App() {
   const [cantidad, setCantidad] = useState(0);
@@ -34,6 +34,7 @@ function App() {
       <div className="mensaje">
         {componente}
       </div>
+      <graft/>
     </>
   );
 }

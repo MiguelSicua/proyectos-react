@@ -48,5 +48,8 @@ const Formulario = ({cantidad, setCantidad, plazo, setPlazo, setTotal }) => {
         </>
      );
 }
+
+
+
  
 export default Formulario;

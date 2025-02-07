@@ -1,14 +1,16 @@
-import { useState } from "react";
-import {db} from "../firebase";
+import { useState, useEffect, useRef } from "react";
+import {auth, db} from "../firebase";
 import {query, collection, orderBy, onSnapshot} from 'firebase/firestore';
-import { useEffect } from "react";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
+import {useAuthState} from "react-firebase-hooks/auth"
 
 
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
+    const scroll = useRef();
+    const [user] = useAuthState(auth);
 
     useEffect(() => {
         const newQuery = query(collection(db, 'messages' ), orderBy('timestamp'));
@@ -24,18 +26,14 @@ const Chat = () => {
     })
 
 
-    return ( 
-        <section className="chat-content">
-            {
-                messages && messages.map(item => (
-                    <Message
-                        key={item.id}
-                        message={item.content}
-                    />
-                ))
-            }
-            <SendMessage/>
-        </section>
+    return (
+      <section className="chat-content">
+        {messages &&
+          messages.map((item) => (
+            <Message key={item.id} message={item.content} />
+          ))}
+        {user && <SendMessage />}
+      </section>
     );
 }
  
