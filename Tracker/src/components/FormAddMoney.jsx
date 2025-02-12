@@ -1,4 +1,25 @@
 import { useState } from "react";
+import styled from 'styled-components';
+
+
+
+export const Input = styled.input`
+      background: #a4a4c4;
+      font-size: lem;
+      margin: lem;
+      width: 80px;
+      height: 25px;
+      padding: 6px 10px;
+      border: 2px solid #09f;
+      border-radius: 5px;
+      text-decoration: line-through;
+      transition: all .2s ease;
+
+      &:hover {
+        background: #09f;
+      }
+    `;
+
 
 const FormAddMoney = ({setCount, setIsValid}) => {
 
@@ -22,10 +43,11 @@ const FormAddMoney = ({setCount, setIsValid}) => {
             <form onSubmit={handleForm}>
                 <p>Agregar Presupuesto</p>
                 <input type="number" placeholder="300$" onChange={e => setInput(e.target.value)}/>
-                <input type="submit" value="Agregar" />
+                <Input type="submit" value="Agregar" />
             </form>
-            { error ? <p className="error">Presupuesto invalido</p> : null}
+            { error ? <p className={styled.button}>Presupuesto invalido</p> : null}
         </div>
+        
     );
 }
 

@@ -6,6 +6,8 @@ body{
   
   /* background-repeat: no-repeat; */
 }
+
+/*
 .App {
   width: 60%;
   margin: 0 auto;
@@ -120,6 +122,7 @@ p.error {
   color: #060708;
 }
 /* single item */
+
 .single-item {
   display: flex;
   justify-content: space-around;
@@ -146,6 +149,8 @@ p.error {
 .single-item a.edit:hover {
   background-color: #2499f18c;
 }
+
+
 .single-item img{
   width: 30%; /* Ajusta el tamaño máximo de la imagen */
   height: 100%; /* Limita la altura */

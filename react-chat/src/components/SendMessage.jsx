@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addDoc, collection, serverTimestamp, Timestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import Picker from "emoji-picker-react";
 
@@ -25,8 +25,14 @@ const SendMessage = ({scroll}) => {
         scroll.current.sccrollIntoView({behavior:'smooth'})
     }
 
-    const emoji = () => setOpen('open')
-    const closeEmoji = () => setOpen('close');
+    const emoji = () => {
+        setOpen('open');
+    }
+
+    const closeEmoji = () => {
+        setOpen('close');
+    }
+
     const onEmojiClick = (event, emojiObjet) => {
         //console.log(emojiObjet);
         setInput(`${input}${emojiObjet.emoji}`);
@@ -38,8 +44,7 @@ const SendMessage = ({scroll}) => {
                 type="button"
                 className="btn-emoji"
                 onClick={emoji}>
-
-                <i className="fa-solid fa-face-grin-wink"></i>
+                    <i className="fa-solid fa-face-grin-wink"></i>
             </button>
             <div className={open}>
                 <button

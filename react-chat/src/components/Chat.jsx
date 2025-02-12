@@ -13,27 +13,30 @@ const Chat = () => {
     const [user] = useAuthState(auth);
 
     useEffect(() => {
-        const newQuery = query(collection(db, 'messages' ), orderBy('timestamp'));
-
-        const unsuscribe = onSnapshot(newQuery, (querySnapshot) => {
-            let currentMessages = [];
-            querySnapshot.forEach(item => {
-                currentMessages.push({content: item.data(), id: item.id})
+        const q = query(collection(db, 'messages' ), orderBy('timestamp'));
+        const unsuscribe = onSnapshot(q, (querySnapshot) => {
+            let messages = [];
+            querySnapshot.forEach(doc => {
+                messages.push({content: doc.data(), id: doc.id})
             })
-            setMessages(currentMessages);
+            setMessages(messages);
         })
-        return unsuscribe; 
-    })
+        return () => unsuscribe(); 
+    }, [])
 
 
     return (
-      <section className="chat-content">
-        {messages &&
-          messages.map((item) => (
-            <Message key={item.id} message={item.content} />
-          ))}
-        {user && <SendMessage />}
-      </section>
+        <>
+            <section className="chat-content">
+                {messages &&
+                messages.map(item => (
+                    <Message key={item.id} message={item} />
+                ))}
+                {user && <SendMessage scroll={scroll}/>}
+
+            <span ref={scroll}></span>
+            </section>
+        </>
     );
 }
  
