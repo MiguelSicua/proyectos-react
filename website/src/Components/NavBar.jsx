@@ -1,57 +1,68 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import styled from 'styled-components'
+import { Nav } from "./componentStyles/NavBarStyles";
+import { CgMenu, CgCloseR } from "react-icons/cg";
 
 const Navbar = () => {
+  const [openMenu, setOpenMenu] = useState(false);
 
-    const Nav = styled.nav`
-      .navbar-list {
-        display: flex;
-        gap: 4.8rem;
-      }
-
-      li {
-        list-style: none;
-
-        .navbar-link {
-          &:link,
-          &:visited {
-            display: inline-block;
-            text-decoration: none;
-            font-size: 1.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            color: ${({ theme }) => theme.colors.black};
-            transition: color 0.3s linear;
-          }
-          &:hover,
-          &:active {
-            color: ${({ theme }) => theme.colors.helper};
-          }
-        }
-      }
-    `;
-
-    return (
-      <Nav>
-        <div className="menuIcon">
-          <ul className="navbar-list">
-            <li>
-              <NavLink className="navbar-link" to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink className="navbar-link" to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink className="navbar-link" to="/service">Services</NavLink>
-            </li>
-            <li>
-              <NavLink className="navbar-link" to="/contact">Contact</NavLink>
-            </li>
-          </ul>
+  return (
+    <Nav>
+      <div className={openMenu ? "menuIcon active" : "menuIcon"}>
+        <ul className="navbar-list">
+          <li>
+            <NavLink
+              className="navbar-link"
+              onClick={() => setOpenMenu(false)}
+              to="/"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="navbar-link"
+              onClick={() => setOpenMenu(false)}
+              to="/about"
+            >
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="navbar-link"
+              onClick={() => setOpenMenu(false)}
+              to="/service"
+            >
+              Services
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="navbar-link"
+              onClick={() => setOpenMenu(false)}
+              to="/contact"
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+        {/** //nav icon*/}
+        <div className="mobile-navbar-btn">
+          <CgMenu
+            name="menu-outline"
+            className="mobile-nav-icon"
+            onClick={() => setOpenMenu(true)}
+          />
+          <CgCloseR
+            name="close-outline"
+            className="close-outline mobile-nav-icon"
+            onClick={() => setOpenMenu(false)}
+          />
         </div>
-      </Nav>
-    );
-
+      </div>
+    </Nav>
+  );
 };
- 
+
 export default Navbar;

@@ -1,18 +1,17 @@
-import React from 'react'
 import About from './About'
+import Contact from './Contact'
 import Home from './home'
 import Services from './Services'
-import Contact from '../Contact'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import Footer from './Components/Footer'
 import Header from './Components/Header'
+import Footer from './Components/Footer'
 import {ThemeProvider} from 'styled-components'
+import { GlobalStyle } from './GlobalStyle'
+import Error from './Error'
+import GoToTop from './Components/GoToTop'
 
 const App = () => {
-
-
   const theme = {
-
     colors: {
       heading: "rgb(24 24 29)",
       text: "rgb(24 24 29)",
@@ -30,11 +29,13 @@ const App = () => {
         "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;",
       shadowSupport: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
     },
-    media: {mobile: "768px", tab: "998px"}
-  }
+    media: { mobile: "768px", tab: "998px" },
+  };
 
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyle/>
+      <GoToTop/>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -42,7 +43,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<Error />} />
         </Routes>
+
         <Footer />
       </BrowserRouter>
     </ThemeProvider>
